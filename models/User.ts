@@ -14,5 +14,6 @@ const userSchema = new Schema<User>({
 });
 
 const UserModel = mongoose.model<User>('User', userSchema);
+//git
 
 export default UserModel;
