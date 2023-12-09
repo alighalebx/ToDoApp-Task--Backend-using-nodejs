@@ -1,10 +1,15 @@
 import express from 'express';
-import * as taskController from '../controllers/toDoController';
+import * as toDoController from '../controllers/toDoController';
 
-const taskRouter = express.Router();
+const toDoRouter = express.Router();
 
-taskRouter.get('/tasks', taskController.getAllTasks);
-taskRouter.get('/tasks/:userId', taskController.getTasksByUserId);
-taskRouter.post('/tasks', taskController.createTask);
 
-export default taskRouter;
+toDoRouter.get('/todos', toDoController.getAllToDos);
+
+
+toDoRouter.get('/todos/:userId', toDoController.getToDosByUserId);
+
+
+toDoRouter.post('/todos', toDoController.createToDo);
+
+export default toDoRouter;

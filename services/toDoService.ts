@@ -33,7 +33,7 @@ const getTasks= () => {
 }
 
 const addTasks= (task: Task) =>{
-    tasks.push(task);
+    //tasks.push(task);
 }
 
 export {getTasks,addTasks}

@@ -32,6 +32,6 @@ const getTasks = () => {
 };
 exports.getTasks = getTasks;
 const addTasks = (task) => {
-    tasks.push(task);
+    //tasks.push(task);
 };
 exports.addTasks = addTasks;

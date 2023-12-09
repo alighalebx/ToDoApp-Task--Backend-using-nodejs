@@ -1,26 +1,33 @@
 import { Request, Response } from 'express';
-import { addTasks, getTasks } from '../services/toDoService';
-import { Task } from '../types/taskTypes';
+import ToDoModel, { ToDo } from '../models/ToDo';
 
-const tasks: Task[] = getTasks(); // In-memory "database"
-
-export const getAllTasks = (req: Request, res: Response) => {
-    res.json(tasks);
-};
-
-export const getTasksByUserId = (req: Request, res: Response) => {
-    const userId = parseInt(req.params.userId, 10);
-    const userTasks = tasks.filter((task) => task.UserId === userId);
-
-    if (userTasks.length === 0) {
-        res.status(404).json({ error: 'No tasks found for this user' });
-    } else {
-        res.json(userTasks);
+export const getAllToDos = async (req: Request, res: Response) => {
+    try {
+    const todos = await ToDoModel.find();
+    res.json(todos);
+    } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-export const createTask = (req: Request, res: Response) => {
-    const newTask: Task = req.body;
-    tasks.push(newTask);
-    res.status(201).json(newTask);
+export const getToDosByUserId = async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+
+    try {
+        const todos = await ToDoModel.find({ userId });
+        res.json(todos);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export const createToDo = async (req: Request, res: Response) => {
+    const { Title, Description, userId }: ToDo = req.body;
+
+    try {
+        const newToDo = await ToDoModel.create({ Title, Description, userId });
+        res.status(201).json(newToDo);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 };

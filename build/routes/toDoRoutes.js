@@ -27,9 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const taskController = __importStar(require("../controllers/toDoController"));
-const taskRouter = express_1.default.Router();
-taskRouter.get('/tasks', taskController.getAllTasks);
-taskRouter.get('/tasks/:userId', taskController.getTasksByUserId);
-taskRouter.post('/tasks', taskController.createTask);
-exports.default = taskRouter;
+const toDoController = __importStar(require("../controllers/toDoController"));
+const toDoRouter = express_1.default.Router();
+toDoRouter.get('/todos', toDoController.getAllToDos);
+toDoRouter.get('/todos/:userId', toDoController.getToDosByUserId);
+toDoRouter.post('/todos', toDoController.createToDo);
+exports.default = toDoRouter;

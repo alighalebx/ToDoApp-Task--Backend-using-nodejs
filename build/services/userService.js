@@ -32,6 +32,6 @@ const getUsers = () => {
 };
 exports.getUsers = getUsers;
 const addusers = (user) => {
-    users.push(user);
+    //users.push(user);
 };
 exports.addusers = addusers;

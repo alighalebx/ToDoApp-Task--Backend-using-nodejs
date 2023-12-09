@@ -1,6 +1,7 @@
-export interface Task {
-    Id: number;
+import { Document } from 'mongoose';
+
+export interface Task extends Document {
     Title: string;
-    Description: string;
-    UserId: number;
+    Description?: string;
+    userId: string;
 }

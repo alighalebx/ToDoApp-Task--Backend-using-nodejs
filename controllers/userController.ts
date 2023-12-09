@@ -1,29 +1,39 @@
 import { Request, Response } from 'express';
-import { addusers, getUsers } from '../services/userService';
-import { User } from '../types/userTypes';
+import UserModel, { User } from '../models/User';
 
-const users: User[] = getUsers(); // In-memory "database"
+export const getAllUsers = async (req: Request, res: Response) => {
 
-export const getAllUsers = (req: Request, res: Response) => {
-    
+    try {
+    const users = await UserModel.find();
     res.json(users);
+    } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+    }
 };
 
-export const getUserById = (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
+    const userId = req.params.userId;
 
-    const userId = parseInt(req.params.userId, 10);
-    const user = users.find((u) => u.Id === userId);
-
+    try {
+    const user = await UserModel.findById(userId);
     if (!user) {
+
         res.status(404).json({ error: 'User not found' });
+    } else {
+        res.json(user);
     }
-    else {
-    res.json(user);
-    }
+    } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+    } 
 };
 
-export const createUser = (req: Request, res: Response) => {
-    const newUser: User = req.body;
-    users.push(newUser);
+export const createUser = async (req: Request, res: Response) => {
+    const { Name, Email, PhoneNo }: User = req.body;
+
+    try {
+    const newUser = await UserModel.create({ Name, Email, PhoneNo });
     res.status(201).json(newUser);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 };

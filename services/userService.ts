@@ -33,7 +33,7 @@ const getUsers= () => {
 }
 
 const addusers = (user: User) =>{
-    users.push(user);
+    //users.push(user);
 }
 
 export {getUsers,addusers}
